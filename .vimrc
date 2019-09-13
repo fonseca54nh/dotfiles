@@ -4,13 +4,10 @@ autocmd BufWinLeave *.* mkview
 
 autocmd BufWinEnter *.* silent loadview
 
-<<<<<<< HEAD
-=======
 colo desert
 
 syntax on
 
->>>>>>> vimrc update
 inoremap { {}<Left>
 
 inoremap ( ()<Left>
