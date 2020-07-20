@@ -1,0 +1,381 @@
+#+TITLE: I3WM CONFIG
+#+PROPERTY: header-args :tangle config
+
+* Table Of Contents :toc:
+- [[#window-modifiers][Window Modifiers]]
+- [[#font][Font]]
+- [[#reload][Reload]]
+- [[#terminal][Terminal]]
+- [[#startup][Startup]]
+  - [[#bar][Bar]]
+  - [[#wallpaper][Wallpaper]]
+- [[#colors][Colors]]
+- [[#gaps-and-borders][Gaps and Borders]]
+- [[#scratchpad][Scratchpad]]
+- [[#keybindings][Keybindings]]
+  - [[#audio][Audio]]
+  - [[#brightness][Brightness]]
+  - [[#input-language][Input Language]]
+  - [[#trackpad][Trackpad]]
+  - [[#ncmpcpp][Ncmpcpp]]
+  - [[#applications][Applications]]
+
+* Window Modifiers
+Set Meta as modifier key
+#+BEGIN_SRC 
+set $mod Mod4
+#+END_SRC
+
+Kill focused window
+#+BEGIN_SRC 
+bindsym $mod+Shift+q kill
+#+END_SRC
+
+Use Mouse+$mod to drag floating windows to their wanted position
+#+BEGIN_SRC 
+floating_modifier $mod
+for_window [class="^kitty$"] floating enable 
+for_window [class="^firefox"] floating enable
+#+END_SRC
+
+change focus
+#+BEGIN_SRC 
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+#+END_SRC
+
+alternatively, you can use the cursor keys:
+#+BEGIN_SRC 
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+#+END_SRC
+
+move focused window
+#+BEGIN_SRC 
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+#+END_SRC
+
+alternatively, you can use the cursor keys:
+#+BEGIN_SRC 
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+#+END_SRC
+
+split in horizontal orientation
+#+BEGIN_SRC 
+bindsym $mod+h split h
+#+END_SRC
+
+split in vertical orientation
+#+BEGIN_SRC 
+bindsym $mod+v split v
+#+END_SRC
+
+enter fullscreen mode for the focused container
+#+BEGIN_SRC 
+bindsym $mod+f fullscreen toggle
+#+END_SRC
+
+change container layout (stacked, tabbed, toggle split)
+#+BEGIN_SRC 
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+#+END_SRC
+
+Toggle tiling / floating
+#+BEGIN_SRC 
+bindsym $mod+Shift+space floating toggle
+#+END_SRC
+
+Change focus between tiling / floating windows
+#+BEGIN_SRC 
+bindsym $mod+d focus mode_toggle
+#+END_SRC
+
+Focus the parent container
+#+BEGIN_SRC 
+bindsym $mod+a focus parent
+#+END_SRC
+
+Focus the child container
+#+BEGIN_SRC 
+#bindsym $mod+d focus child
+#+END_SRC
+
+Define the workspaces
+#+BEGIN_SRC 
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+#+END_SRC
+
+Switch to workspace
+#+BEGIN_SRC 
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+#+END_SRC
+
+Move window to desired workspace
+#+BEGIN_SRC 
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+#+END_SRC
+
+Fast switch to last workspace
+#+BEGIN_SRC 
+bindsym $mod+Tab workspace back_and_forth
+#+END_SRC
+
+Resize Window
+#+BEGIN_SRC 
+mode "resize" {
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+#+END_SRC
+
+Resize
+#+BEGIN_SRC 
+bindsym $mod+r mode "resize"
+#+END_SRC
+
+Assing workspaces and monitors
+#+BEGIN_SRC 
+workspace 1 output eDP-1-1
+workspace 3 output eDP-1-1
+workspace 2 output HDMI-0
+workspace 4 output HDMI-0
+#+END_SRC
+
+* Font
+#+BEGIN_SRC 
+#font pango:xos4Terminus 10px
+#font pango:C64 Pro
+font pango: Px437 AT&T PC6300
+#+END_SRC
+
+* Reload
+
+Reload the configuration file
+#+BEGIN_SRC 
+bindsym $mod+Shift+c reload
+#+END_SRC
+
+Restart i3
+#+BEGIN_SRC 
+bindsym $mod+Shift+r restart
+#+END_SRC
+
+Exit i3
+#+BEGIN_SRC 
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+#+END_SRC
+
+* Terminal
+define terminal
+#+BEGIN_SRC 
+#bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec /home/b/cool-retro-term/cool-retro-term
+bindsym $mod+Return exec kitty
+#+END_SRC
+
+
+
+* Startup
+
+Merge Xresources
+#+BEGIN_SRC 
+exec_always --no-startup-id xrdb -merge ~/.Xresources
+#+END_SRC
+
+Pywal colors
+#+BEGIN_SRC 
+exec_always --no-startup-id . "${HOME}/.cache/wal/colors.sh"
+#+END_SRC
+
+#+BEGIN_SRC 
+exec_always --no-startup-id blugon 
+exec_always fusuma
+exec_always mpd
+exec_always ~/./randle
+exec_always ~/./audio
+exec_always --no-startup-id dunst
+
+exec_always --no-startup-id python3 $HOME/.config/i3/i3-swallow.py
+
+#exec_always --no-startup-id pkill compton
+exec_always --no-startup-id ~/scripts/./cp
+#exec --no-startup-id nm-applet --sm-disable
+#+END_SRC
+
+** Bar
+Start Polybar
+#+BEGIN_SRC 
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+#+END_SRC
+
+** Wallpaper
+
+#+BEGIN_SRC 
+exec_always --no-startup-id feh --bg-scale ~/Pictures/trees.png
+#exec_always --no-startup-id feh --bg-scale ~/Pictures/amiga.png
+#exec_always --no-startup-id ~/Pictures/./wallgif.sh ~/Pictures/tavern.gif 
+#exec_always --no--startup-id wal -i ~/Pictures/amiga.png
+#exec_always --no-startup-id hsetroot -solid brown
+#+END_SRC
+
+* Colors
+
+#+BEGIN_SRC 
+set $bg-color            #000000
+set $inactive-bg-color   #000000
+set $text-color          #f3f4f5
+set $inactive-text-color #676E7D
+set $urgent-bg-color     #E53935
+
+set_from_resource $fg i3wm.color2 #f0f0f0
+set_from_resource $bg i3wm.color1 #f0f0f0
+
+client.focused          $fg  	   $fg      #ffffff  #002776   $fg 
+client.focused_inactive $fg	     #5f676a  #ffffff  #484e50   $bg 
+client.unfocused        $bg      #222222  #888888  #292d2e   $bg
+client.urgent           #2f343a  #900000  #ffffff  #199475   #900000
+client.placeholder      #fedf00  #0c0c0c  #ffffff  #1793d0   #0c0c0c
+client.background       $bg
+
+#client.focused          #fedf00  #285577  #ffffff  #002776   #fedf00
+#client.focused_inactive #fedf00  #5f676a  #ffffff  #484e50   #009b3a
+#client.unfocused        #c9cabb  #222222  #888888  #292d2e   #009b3a
+#client.urgent           #2f343a  #900000  #ffffff  #199475   #900000
+#client.placeholder      #fedf00  #0c0c0c  #ffffff  #1793d0   #0c0c0c
+#client.background       #81c2d6
+#+END_SRC
+
+
+* Gaps and Borders
+
+#+BEGIN_SRC 
+for_window [class=".*"] border pixel 5
+gaps inner 15
+gaps outer 25
+#+END_SRC
+
+
+* Scratchpad
+
+Dropdown terminal configuration for urxvt
+#+BEGIN_SRC 
+for_window [instance="music"] move container to scratchpad
+exec $ns kitty -name music -e ncmpcpp
+bindsym $mod+t [instance="music"] scratchpad show
+bindsym $mod+Shift+t exec $ns kitty -name music
+#+END_SRC
+
+Scratchpad configuration
+#+BEGIN_SRC 
+bindsym $mod+shift+plus move scratchpad
+bindsym $mod+plus scratchpad show
+#+END_SRC
+
+* Keybindings
+
+Use xmodmap -pk for fn commands
+** Audio
+
+#+BEGIN_SRC 
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute  0 toggle
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+#+END_SRC
+
+** Brightness
+
+#+BEGIN_SRC 
+bindsym XF86MonBrightnessDown exec light -U 10
+bindsym XF86MonBrightnessUp   exec light -A 10
+#+END_SRC
+
+** Input Language
+
+#+BEGIN_SRC 
+bindsym $mod+p exec setxkbmap br
+bindsym $mod+shift+p exec setxkbmap us
+#+END_SRC
+
+** Trackpad
+
+#+BEGIN_SRC 
+exec_always --no-startup-id xinput --set-prop "13" "libinput Natural Scrolling Enabled" 0
+exec_always --no-startup-id xinput --set-prop "13" "libinput Tapping Enabled" 1
+exec_always --no-startup-id xinput --set-prop "14" "libinput Natural Scrolling Enabled" 0
+exec_always --no-startup-id xinput --set-prop "14" "libinput Tapping Enabled" 1
+#+END_SRC
+
+** Ncmpcpp
+
+#+BEGIN_SRC 
+bindsym $mod+greater 		exec --no-startup-id mpc -p 6601 next
+bindsym $mod+less    		exec --no-startup-id mpc -p 6601 prev
+bindsym $mod+backslash  	exec --no-startup-id mpc -p 6601 stop
+bindsym $mod+apostrophe		exec --no-startup-id mpc -p 6601 pause
+bindsym $mod+slash   		exec --no-startup-id mpc -p 6601 play
+bindsym $mod+m		 		exec --no-startup-id kitty -e ncmpcpp
+#+END_SRC
+
+** Applications
+
+#+BEGIN_SRC 
+#bindsym $mod+d exec dmenu_run
+bindsym $mod+space exec rofi -show run
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+i exec emacs
+bindsym $mod+c exec kitty -e calcurse
+bindsym $mod+n exec discord
+bindsym $mod+y exec flameshot full -c -p ~/Downloads
+bindsym $mod+b exec firefox 
+#+END_SRC
